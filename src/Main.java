@@ -32,18 +32,13 @@ public class Main {
     }
 
     public static boolean isAvailable(int zone) {
-        switch (zone) {
-            case 1: // Platea alta
-                return disponiblesPlateaAlta >= 0;
-            case 2: // Platea Vip
-                return disponiblesVip >= 0;
-            case 3: // Platea baja
-                return disponiblesPlateaBaja >= 0;
-            case 4: // Palcos
-                return disponiblesPalcos >= 0;
-            default:
-                return false;
-        }
+        return switch (zone) {
+            case 1 -> disponiblesPlateaAlta >= 0;
+            case 2 -> disponiblesVip >= 0;
+            case 3 -> disponiblesPlateaBaja >= 0;
+            case 4 -> disponiblesPalcos >= 0;
+            default -> false;
+        };
     }
 
     private static String obtenerZona(int zone) {
@@ -64,7 +59,7 @@ public class Main {
         double STUDENT_DISCOUNT = 0.15; // descuento de estudiante
         double SENIOR_DISCOUNT = 0.10; // descuento de adulto mayor
 
-        double precioFinalEntrada = 0;
+        double precioFinalEntrada;
 
         System.out.println("MENU");
         int option;
