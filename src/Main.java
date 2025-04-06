@@ -7,13 +7,13 @@ public class Main {
     static int disponiblesPlateaBaja = 3;
     static int disponiblesPalcos = 3;
 
-    public static boolean isInputValid(int input, int min, int max) {
+    public static boolean isNotInputValid(int input, int min, int max) {
         // TODO: agregar validación de tipo, para que maneje el error en caso de que ponga un string por ejemplo
         if (input >= min && input <= max) {
-            return true;
+            return false;
         } else {
             System.out.println("[Error] Ingresa un input válido, intenta nuevamente");
-            return false;
+            return true;
         }
     }
 
@@ -42,7 +42,7 @@ public class Main {
     }
 
     private static String obtenerZona(int zone) {
-        if (!isInputValid(zone, 1, 4)) return null;
+        if (isNotInputValid(zone, 1, 4)) return null;
 
         return switch (zone) {
             case 1 -> "Platea alta";
@@ -71,7 +71,7 @@ public class Main {
 
                 System.out.print("Ingresa la opción que deseas: ");
                 option = sc.nextInt();
-            } while (!isInputValid(option, 1, 2));
+            } while (isNotInputValid(option, 1, 2));
 
             // Verifica que el usuario uso la opción de salir y retorna o sale
             // del programa
@@ -95,7 +95,7 @@ public class Main {
                 do {
                     System.out.print("Ingresa la zona que desea comprar: ");
                     inputZone = sc.nextInt();
-                } while (!isInputValid(inputZone, 1, 4) && !isAvailable(inputZone));
+                } while (isNotInputValid(inputZone, 1, 4) && !isAvailable(inputZone));
 
                 // Asigna el precio general de la entrada sin descuento según
                 // la zona escogida
@@ -107,7 +107,7 @@ public class Main {
                 do {
                     System.out.print("Ingresa tu edad: ");
                     edad = sc.nextInt();
-                } while (!isInputValid(edad, 1, 100));
+                } while (isNotInputValid(edad, 1, 100));
 
                 double descuentoAplicado = 0;
 
