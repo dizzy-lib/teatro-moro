@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -7,8 +8,34 @@ public class Main {
     static int disponiblesPlateaBaja = 3;
     static int disponiblesPalcos = 3;
 
+    /**
+     * Método que valida si un input está dentro de un rango determinado
+     * @param scanner El scanner para leer la entrada
+     * @param min Valor mínimo aceptable
+     * @param max Valor máximo aceptable
+     * @return El valor validado si es correcto, o -1 si ocurrió un error
+     */
+    public static int getValidInput(Scanner scanner, int min, int max) {
+        int input;
+
+        try {
+            input = scanner.nextInt();
+            if (input >= min && input <= max) {
+                return input;
+            } else {
+                System.out.println("[Error] Ingresa un valor entre " + min + " y " + max + ", intenta nuevamente");
+                return -1;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("[Error] Debes ingresar un número válido, intenta nuevamente");
+            return -1;
+        }
+    }
+
+    /**
+     * Método original mantenido por compatibilidad
+     */
     public static boolean isNotInputValid(int input, int min, int max) {
-        // TODO: agregar validación de tipo, para que maneje el error en caso de que ponga un string por ejemplo
         if (input >= min && input <= max) {
             return false;
         } else {
@@ -25,7 +52,6 @@ public class Main {
         tablaPrecios[2] = 18000; // Platea alta
         tablaPrecios[3] = 13000; // Palcos
 
-
         // restamos 1 a la zona ingresada para que haga match
         // con el índice de la lista
         return tablaPrecios[zona - 1];
@@ -33,10 +59,10 @@ public class Main {
 
     public static boolean isAvailable(int zone) {
         return switch (zone) {
-            case 1 -> disponiblesPlateaAlta >= 0;
-            case 2 -> disponiblesVip >= 0;
-            case 3 -> disponiblesPlateaBaja >= 0;
-            case 4 -> disponiblesPalcos >= 0;
+            case 1 -> disponiblesPlateaAlta > 0;
+            case 2 -> disponiblesVip > 0;
+            case 3 -> disponiblesPlateaBaja > 0;
+            case 4 -> disponiblesPalcos > 0;
             default -> false;
         };
     }
@@ -70,8 +96,13 @@ public class Main {
                 System.out.println("2. Salir");
 
                 System.out.print("Ingresa la opción que deseas: ");
-                option = sc.nextInt();
-            } while (isNotInputValid(option, 1, 2));
+                option = getValidInput(sc, 1, 2);
+
+                // Si el valor es inválido, limpiamos el buffer para evitar un bucle infinito
+                if (option == -1) {
+                    sc.nextLine();
+                }
+            } while (option == -1);
 
             // Verifica que el usuario uso la opción de salir y retorna o sale
             // del programa
@@ -94,8 +125,28 @@ public class Main {
 
                 do {
                     System.out.print("Ingresa la zona que desea comprar: ");
-                    inputZone = sc.nextInt();
-                } while (isNotInputValid(inputZone, 1, 4) && !isAvailable(inputZone));
+                    inputZone = getValidInput(sc, 1, 4);
+
+                    // Si el valor es inválido, limpiamos el buffer para evitar un bucle infinito
+                    if (inputZone == -1) {
+                        sc.nextLine();
+                        continue;
+                    }
+
+                    // Verificar disponibilidad
+                    if (!isAvailable(inputZone)) {
+                        System.out.println("[Error] No hay entradas disponibles para esta zona, elige otra");
+                        inputZone = -1;
+                    }
+                } while (inputZone == -1);
+
+                // Reducir el contador de entradas disponibles para la zona elegida
+                switch (inputZone) {
+                    case 1 -> disponiblesPlateaAlta--;
+                    case 2 -> disponiblesVip--;
+                    case 3 -> disponiblesPlateaBaja--;
+                    case 4 -> disponiblesPalcos--;
+                }
 
                 // Asigna el precio general de la entrada sin descuento según
                 // la zona escogida
@@ -106,8 +157,13 @@ public class Main {
                 // Validamos que la edad sea válida
                 do {
                     System.out.print("Ingresa tu edad: ");
-                    edad = sc.nextInt();
-                } while (isNotInputValid(edad, 1, 100));
+                    edad = getValidInput(sc, 1, 100);
+
+                    // Si el valor es inválido, limpiamos el buffer para evitar un bucle infinito
+                    if (edad == -1) {
+                        sc.nextLine();
+                    }
+                } while (edad == -1);
 
                 double descuentoAplicado = 0;
 
@@ -127,7 +183,6 @@ public class Main {
                 System.out.println("Descuento aplicado: " + descuentoAplicado);
                 System.out.println("Precio final a pagar: " + precioFinalEntrada);
             }
-
         }
     }
 }
