@@ -61,7 +61,7 @@ public class Main {
 
         double precioFinalEntrada;
 
-        System.out.println("MENU");
+        System.out.println("\nMENU");
         int option;
 
         do {
@@ -81,7 +81,7 @@ public class Main {
 
         // no agrego un else if para no anidar código dentro de otro scope
         if (option == 1) {
-            System.out.println("=== ZONAS DISPONIBLES ===");
+            System.out.println("\n=== ZONAS DISPONIBLES ===");
 
             System.out.println("1. Platea alta: " + disponiblesPlateaAlta);
             System.out.println("2. Vip: " + disponiblesVip);
@@ -119,7 +119,7 @@ public class Main {
                 precioFinalEntrada = precioGeneralEntrada;
             }
 
-            System.out.println("=== RESUMEN DE TU COMPRA ===");
+            System.out.println("\n=== RESUMEN DE TU COMPRA ===");
             System.out.println("Ubicación (Zona): " + obtenerZona(inputZone));
             System.out.println("Precio base: " + obtenerPrecioEntradaPorZona(inputZone));
             System.out.println("Descuento aplicado: " + descuentoAplicado);
