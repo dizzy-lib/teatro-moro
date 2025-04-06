@@ -133,10 +133,14 @@ public class Main {
         // Variable para almacenar el precio final después de aplicar descuentos
         double precioFinalEntrada;
 
-        // Bucle principal del programa
-        while (true) {
+        // Variable para controlar el bucle principal
+        boolean continuarPrograma = true;
+
+        // Utilizamos un ciclo iterativo for para mostrar el menú principal
+        // y permitir realizar múltiples compras
+        for (int iteracion = 1; continuarPrograma; iteracion++) {
             // Mostramos el menú principal
-            System.out.println("\nMENU");
+            System.out.println("\nMENU (Iteración: " + iteracion + ")");
             int opcion;
 
             // Bucle para obtener una opción válida del menú principal
@@ -242,6 +246,29 @@ public class Main {
                 System.out.println("Precio base: " + obtenerPrecioEntradaPorZona(zonaSeleccionada));
                 System.out.println("Descuento aplicado: " + descuentoAplicado);
                 System.out.println("Precio final a pagar: " + precioFinalEntrada);
+
+                // Preguntamos al usuario si desea realizar otra compra
+                int deseaOtraCompra;
+                do {
+                    System.out.println("\n¿Deseas realizar otra compra?");
+                    System.out.println("1. Sí");
+                    System.out.println("2. No");
+                    System.out.print("Ingresa tu opción: ");
+
+                    deseaOtraCompra = obtenerEntradaValida(scanner, 1, 2);
+
+                    // Si el valor es inválido, limpiamos el buffer para evitar un bucle infinito
+                    if (deseaOtraCompra == -1) {
+                        scanner.nextLine();
+                    }
+                } while (deseaOtraCompra == -1);
+
+                // Si el usuario no desea realizar otra compra, terminamos el programa
+                if (deseaOtraCompra == 2) {
+                    System.out.println("Gracias por tu compra. ¡Hasta luego!");
+                    scanner.close();
+                    return;
+                }
             }
         }
     }
