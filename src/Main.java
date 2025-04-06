@@ -61,71 +61,73 @@ public class Main {
 
         double precioFinalEntrada;
 
-        System.out.println("\nMENU");
-        int option;
-
-        do {
-            System.out.println("1. Comprar entrada");
-            System.out.println("2. Salir");
-
-            System.out.print("Ingresa la opción que deseas: ");
-            option = sc.nextInt();
-        } while (!isInputValid(option, 1, 2));
-
-        // Verifica que el usuario uso la opción de salir y retorna o sale
-        // del programa
-        if (option == 2) {
-            System.out.println("Gracias por usar el programa :) Hasta luego!");
-            return;
-        }
-
-        // no agrego un else if para no anidar código dentro de otro scope
-        if (option == 1) {
-            System.out.println("\n=== ZONAS DISPONIBLES ===");
-
-            System.out.println("1. Platea alta: " + disponiblesPlateaAlta);
-            System.out.println("2. Vip: " + disponiblesVip);
-            System.out.println("3. Platea baja: " + disponiblesPlateaBaja);
-            System.out.println("4. Palcos: " + disponiblesPalcos);
-
-            int inputZone;
+        while (true) {
+            System.out.println("\nMENU");
+            int option;
 
             do {
-                System.out.print("Ingresa la zona que desea comprar: ");
-                inputZone = sc.nextInt();
-            } while (!isInputValid(inputZone, 1, 4) && !isAvailable(inputZone));
+                System.out.println("1. Comprar entrada");
+                System.out.println("2. Salir");
 
-            // Asigna el precio general de la entrada sin descuento según
-            // la zona escogida
-            double precioGeneralEntrada = obtenerPrecioEntradaPorZona(inputZone);
+                System.out.print("Ingresa la opción que deseas: ");
+                option = sc.nextInt();
+            } while (!isInputValid(option, 1, 2));
 
-            int edad;
-
-            // Validamos que la edad sea válida
-            do {
-                System.out.print("Ingresa tu edad: ");
-                edad = sc.nextInt();
-            } while (!isInputValid(edad, 1, 100));
-
-            double descuentoAplicado = 0;
-
-            if (edad <= 18) {
-                descuentoAplicado = precioGeneralEntrada * STUDENT_DISCOUNT;
-                precioFinalEntrada = precioGeneralEntrada - descuentoAplicado;
-            } else if (edad >= 60) {
-                descuentoAplicado = precioGeneralEntrada * SENIOR_DISCOUNT;
-                precioFinalEntrada = precioGeneralEntrada - descuentoAplicado;
-            } else {
-                precioFinalEntrada = precioGeneralEntrada;
+            // Verifica que el usuario uso la opción de salir y retorna o sale
+            // del programa
+            if (option == 2) {
+                System.out.println("Gracias por usar el programa :) Hasta luego!");
+                sc.close();
+                return;
             }
 
-            System.out.println("\n=== RESUMEN DE TU COMPRA ===");
-            System.out.println("Ubicación (Zona): " + obtenerZona(inputZone));
-            System.out.println("Precio base: " + obtenerPrecioEntradaPorZona(inputZone));
-            System.out.println("Descuento aplicado: " + descuentoAplicado);
-            System.out.println("Precio final a pagar: " + precioFinalEntrada);
-        }
+            // no agrego un else if para no anidar código dentro de otro scope
+            if (option == 1) {
+                System.out.println("\n=== ZONAS DISPONIBLES ===");
 
-        sc.close();
+                System.out.println("1. Platea alta: " + disponiblesPlateaAlta);
+                System.out.println("2. Vip: " + disponiblesVip);
+                System.out.println("3. Platea baja: " + disponiblesPlateaBaja);
+                System.out.println("4. Palcos: " + disponiblesPalcos);
+
+                int inputZone;
+
+                do {
+                    System.out.print("Ingresa la zona que desea comprar: ");
+                    inputZone = sc.nextInt();
+                } while (!isInputValid(inputZone, 1, 4) && !isAvailable(inputZone));
+
+                // Asigna el precio general de la entrada sin descuento según
+                // la zona escogida
+                double precioGeneralEntrada = obtenerPrecioEntradaPorZona(inputZone);
+
+                int edad;
+
+                // Validamos que la edad sea válida
+                do {
+                    System.out.print("Ingresa tu edad: ");
+                    edad = sc.nextInt();
+                } while (!isInputValid(edad, 1, 100));
+
+                double descuentoAplicado = 0;
+
+                if (edad <= 18) {
+                    descuentoAplicado = precioGeneralEntrada * STUDENT_DISCOUNT;
+                    precioFinalEntrada = precioGeneralEntrada - descuentoAplicado;
+                } else if (edad >= 60) {
+                    descuentoAplicado = precioGeneralEntrada * SENIOR_DISCOUNT;
+                    precioFinalEntrada = precioGeneralEntrada - descuentoAplicado;
+                } else {
+                    precioFinalEntrada = precioGeneralEntrada;
+                }
+
+                System.out.println("\n=== RESUMEN DE TU COMPRA ===");
+                System.out.println("Ubicación (Zona): " + obtenerZona(inputZone));
+                System.out.println("Precio base: " + obtenerPrecioEntradaPorZona(inputZone));
+                System.out.println("Descuento aplicado: " + descuentoAplicado);
+                System.out.println("Precio final a pagar: " + precioFinalEntrada);
+            }
+
+        }
     }
 }
