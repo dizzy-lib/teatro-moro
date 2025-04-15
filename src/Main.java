@@ -5,8 +5,6 @@ import java.util.InputMismatchException;
  * Sistema de Venta de Entradas del Teatro Moro
  * Este sistema permite la venta, promoción, búsqueda y eliminación de entradas
  * para diferentes ubicaciones, aplicando descuentos según el tipo de cliente.
- *
- * La implementación sigue un enfoque de programación secuencial, sin usar POO avanzada.
  */
 public class Main {
     // Variables estáticas para almacenar información del teatro
