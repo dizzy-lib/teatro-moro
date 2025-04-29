@@ -1,5 +1,6 @@
+package sistemaVentas;
+
 public enum EstadoAsiento {
     DISPONIBLE,
-    RESERVADO,
-    VENDIDO
+    OCUPADO
 }

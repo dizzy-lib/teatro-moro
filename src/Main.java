@@ -1,25 +1,26 @@
+import Presetation.Menu;
+import SistemaDescuento.Descuento;
+import SistemaDescuento.Descuentos;
+import SistemaDescuento.SistemaDescuentos;
+import sistemaVentas.SistemaVentas;
+
+import java.util.ArrayList;
+
 public class Main {
     public static void main(String[] args) {
-        // Crear el teatro
-        Teatro teatro = new Teatro("Teatro Moro");
+        // Crear sistema de descuentos
+        ArrayList<Descuento> listaDescuentos = new ArrayList<>();
+        listaDescuentos.add(new Descuento(Descuentos.ESTUDIANTES, 0.10F));
+        listaDescuentos.add(new Descuento(Descuentos.TERCERA_EDAD, 0.15F));
 
-        // Crear diferentes salas
-        Sala salaVip = new Sala("VIP", 5, 5);
-        Sala salaGeneral = new Sala("General", 8, 10);
-        Sala salaPreferencial = new Sala("Preferencial", 6, 8);
+        // Inicializar sistemas
+        SistemaDescuentos sistemaDescuentos = new SistemaDescuentos(listaDescuentos);
+        SistemaVentas sistemaVentas = new SistemaVentas(sistemaDescuentos);
 
-        // Establecer precios base diferentes para cada sala
-        salaVip.setPrecioBase(5000.0);
-        salaGeneral.setPrecioBase(2000.0);
-        salaPreferencial.setPrecioBase(3500.0);
+        // Crear e iniciar el menú - ahora usamos un solo método que maneja todo
+        Menu menu = new Menu(sistemaVentas);
+        menu.iniciar();  // Este método único maneja toda la lógica del menú
 
-        // Agregar salas al teatro
-        teatro.addSala(salaVip);
-        teatro.addSala(salaGeneral);
-        teatro.addSala(salaPreferencial);
-
-        // Iniciar la interfaz de usuario
-        UI ui = new UI(teatro);
-        ui.mostrarMenu();
+        System.out.println("El programa ha finalizado. ¡Hasta pronto!");
     }
 }
