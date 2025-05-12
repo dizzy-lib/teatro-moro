@@ -405,18 +405,6 @@ public class Menu {
      * Confirma si el usuario realmente desea salir del sistema.
      */
     private void confirmarSalida() {
-        System.out.print("\n¿Está seguro que desea salir? (S/N): ");
-        String respuesta = scanner.nextLine().trim().toUpperCase();
-
-        while (!respuesta.equals("S") && !respuesta.equals("N")) {
-            System.out.print("Por favor, responda S o N: ");
-            respuesta = scanner.nextLine().trim().toUpperCase();
-        }
-
-        if (respuesta.equals("N")) {
-            return;
-        }
-
         limpiarPantalla();
         System.out.println(LINEA_DIVISORIA);
         System.out.println("      ¡GRACIAS POR USAR TEATRO MORO!      ");
